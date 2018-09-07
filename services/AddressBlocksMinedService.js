@@ -92,7 +92,7 @@ AddressBlocksMinedService.prototype.start = function (next) {
 
         self._rapidProtectedUpdateTip(self.lastTipHeight);
 
-        self.node.services.ravend.on('tip', self._rapidProtectedUpdateTip.bind(self));
+        self.node.services.dashd.on('tip', self._rapidProtectedUpdateTip.bind(self));
 
         return next();
 
@@ -201,7 +201,7 @@ AddressBlocksMinedService.prototype.processBlock = function (blockHeight, next) 
 
 
     return async.waterfall([function (callback) {
-        return self.node.services.ravend.getJsonBlock(blockHeight, function (err, response) {
+        return self.node.services.dashd.getJsonBlock(blockHeight, function (err, response) {
 
             if (err) {
                 return callback(err);

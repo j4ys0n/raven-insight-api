@@ -84,7 +84,7 @@ util.inherits(StatisticService, EventEmitter);
 StatisticService.prototype.start = function (callback) {
 
     var self = this,
-        height = self.node.services.ravend.height;
+        height = self.node.services.dashd.height;
 
     return async.waterfall([function (callback) {
         return self.lastBlockRepository.setLastBlockType(STATISTIC_TYPE, 0, function(err) {
@@ -140,7 +140,7 @@ StatisticService.prototype.start = function (callback) {
             return callback(err);
         }
 
-        self.node.services.ravend.on('tip', self._rapidProtectedUpdateTip.bind(self));
+        self.node.services.dashd.on('tip', self._rapidProtectedUpdateTip.bind(self));
         self._rapidProtectedUpdateTip(height);
 
         return callback(err);
@@ -1249,7 +1249,7 @@ StatisticService.prototype.getPoolInfo = function(paddress) {
  * @return {BigNumber} supply - BigNumber representation of total supply
  */
 StatisticService.prototype.getTotalSupply  = function() {
-    var blockHeight = this.node.services.ravend.height;
+    var blockHeight = this.node.services.dashd.height;
 
     var supply = (new BigNumber(0)).plus((blockHeight) * 5000);
 
